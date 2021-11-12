@@ -5,11 +5,13 @@ import selectLesson from '../actions/action';
 export default function SideBar() {
 
     const modules = useSelector(state => state.modules)
+    useSelector(state => state.img) //useSelector is a hook that allows us to access the current state of the store
+
     const dispatch = useDispatch()
 
-    function handleClick(id, module, lesson, color, checked, img){
+    function handleClick(module, lesson, color, id, checked, img){
         
-        dispatch(selectLesson(id, module, lesson, color, checked, img))
+        dispatch(selectLesson(module, lesson, color, id, checked, img))
     }
 
     return (
@@ -20,7 +22,7 @@ export default function SideBar() {
             <ul key={module.id}>
               <br /> {module.title} <br />
               {module.lessons.map((lesson) => {
-                return <li onClick={()=>handleClick(lesson.id, module.title, lesson.title, module.color, lesson.checked, lesson.img)} key={lesson.id}>{lesson.img}{lesson.title} <br /></li>;
+                return <li key={lesson.id} onClick={()=>handleClick(module.title, lesson.title, module.color,lesson.id, lesson.checked, lesson.img)} key={lesson.id}>{lesson.img}{lesson.title} <br /></li>;
               })}
             </ul>
           );
