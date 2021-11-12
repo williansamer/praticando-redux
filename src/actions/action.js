@@ -1,3 +1,3 @@
-const selectLesson = (module, lesson, color)=>{return {type: 'SELECT_LESSON', module, lesson, color}};
+const selectLesson = (id, module, lesson, color, checked, img)=>{return {type: 'SELECT_LESSON', id, module, lesson, color, checked, img}};
 
 export default selectLesson;

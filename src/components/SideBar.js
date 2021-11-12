@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import selectLesson from '../actions/action';
 
@@ -6,6 +6,11 @@ export default function SideBar() {
 
     const modules = useSelector(state => state.modules)
     const dispatch = useDispatch()
+
+    function handleClick(id, module, lesson, color, checked, img){
+        
+        dispatch(selectLesson(id, module, lesson, color, checked, img))
+    }
 
     return (
       <div className="side-bar">
@@ -15,7 +20,7 @@ export default function SideBar() {
             <ul key={module.id}>
               <br /> {module.title} <br />
               {module.lessons.map((lesson) => {
-                return <li onClick={()=>dispatch(selectLesson(module.title, lesson.title, module.color))} key={lesson.id}>{lesson.title} <br /></li>;
+                return <li onClick={()=>handleClick(lesson.id, module.title, lesson.title, module.color, lesson.checked, lesson.img)} key={lesson.id}>{lesson.img}{lesson.title} <br /></li>;
               })}
             </ul>
           );
