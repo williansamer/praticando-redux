@@ -39,8 +39,8 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
 
-    console.log(state.modules[0].lessons[0].checked);
-    console.log(state.modules[0].lessons[0].img);
+    //console.log(state.modules[0].lessons[0].checked);
+    //console.log(state.modules[0].lessons[0].img);
 
     switch (action.type) {
       case "SELECT_LESSON":

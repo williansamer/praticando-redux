@@ -4,7 +4,8 @@ import selectLesson from '../actions/action';
 
 export default function SideBar() {
 
-    const modules = useSelector(state => state.modules)
+    const modules = useSelector(state => state.modules)//useSelector is a hook that returns the state of the store
+    useSelector(state=>state.img); //this useSelector is returning the img state of the store
     const dispatch = useDispatch()
 
     function handleClick(id, module, lesson, color, checked, img){
