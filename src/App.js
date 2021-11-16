@@ -1,18 +1,8 @@
 import "./App.css";
 import SideBar from "./components/SideBar";
 import Video from "./components/Video";
-import { createStore } from "redux";
-import reducer from "./reducers/reducer";
 import { Provider } from "react-redux";
-
-import persistState from "./localStorage/persistState";
-import loadState from "./localStorage/loadState";
-
-const store = createStore(reducer, loadState()); //Trouble with the preLoadedState loadState()
-
-store.subscribe(() => {
-  persistState(store.getState());
-});
+import store from "./store/store";
 
 function App() {
   return (
