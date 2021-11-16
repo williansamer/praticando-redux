@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import selectLesson from '../actions/action';
+import {selectLesson, checkClick} from '../actions/action';
 
 function SideBar(props) {
 
@@ -10,19 +10,10 @@ function SideBar(props) {
     })
   }))
 
-  function handleCheckClick(module, lesson, color, id) {
-    let newCheck = props.modules.filter((module) => {
-      module.lessons.filter((lesson) => {
-        if (lesson.id === id) {
-          lesson.checked = !lesson.checked;
-          return lesson.checked;
-        }})});
-    handleClick(module, lesson, color, id, newCheck);
-  }
-
   function handleClick(module, lesson, color, id, checked){
     setChecking(!checking)
     props.selectLesson(module, lesson, color, id, checked)
+    props.checkClick(id, checked)
   }
 
   return (
@@ -33,7 +24,7 @@ function SideBar(props) {
           <ul key={module.id}>
             <br /> {module.title} <br />
             {module.lessons.map((lesson) => {
-              return <li key={lesson.id} onClick={()=>handleCheckClick(module.title, lesson.title, module.id, lesson.id)}>{lesson.checked ? <img alt="on" src="./assets/on.png" /> : <img alt="off" src="./assets/off.png" />}{lesson.title} <br /></li>;
+              return <li key={lesson.id} onClick={()=>handleClick(module.title, lesson.title, module.id, lesson.id, lesson.checked)}>{lesson.checked ? <img alt="on" src="./assets/on.png" /> : <img alt="off" src="./assets/off.png" />}{lesson.title} <br /></li>;
             })}
           </ul>
         );
@@ -44,13 +35,14 @@ function SideBar(props) {
 
 function mapStateToProps(state) {
   return {
-    modules: state.modules
+    modules: state.modules,
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    selectLesson: (module, lesson, color, id, checked) => dispatch(selectLesson(module, lesson, color, id, checked))
+    selectLesson: (module, lesson, color, id, checked) => dispatch(selectLesson(module, lesson, color, id, checked)),
+    checkClick: (id, checked) => dispatch(checkClick(id, checked))
   }
 }
 

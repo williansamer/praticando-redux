@@ -4,23 +4,13 @@ import Video from './components/Video';
 import {createStore} from 'redux';
 import reducer from './reducers/reducer';
 import {Provider} from 'react-redux';
-import initialState from "./state/initialState";
 
-const SAVE_ITEM = "saveItem";
-
-function persistState(state){
-  localStorage.setItem(SAVE_ITEM, JSON.stringify(state));
-}
-
-function loadState(){
-  const state = localStorage.getItem(SAVE_ITEM);
-  return state ? JSON.parse(state) : initialState;
-}
+import persistState from './localStorage/persistState';
+import loadState from './localStorage/loadState';
 
 const store = createStore(reducer, loadState()); //Trouble with the preLoadedState loadState()
 
 store.subscribe(()=>{persistState(store.getState())});
-
 
 function App() {
 
